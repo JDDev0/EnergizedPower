@@ -1588,7 +1588,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM), Map.of(
-                'C', ingredientOf(Tags.Items.COBBLESTONES_NORMAL),
+                'C', ingredientOf(Tags.BlockItems.COBBLESTONES_NORMAL.item()),
                 'c', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM),
                 'H', ingredientOf(Items.HOPPER)
         ), new String[] {
@@ -1609,7 +1609,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'i', ingredientOf(CommonItemTags.GEARS_STEEL),
                 's', ingredientOf(CommonItemTags.INGOTS_STEEL),
                 'S', ingredientOf(Items.SMOOTH_STONE),
@@ -1634,9 +1634,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_LOADER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
-                'C', ingredientOf(Tags.Items.COBBLESTONES_NORMAL),
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
-                'R', ingredientOf(Tags.Items.STORAGE_BLOCKS_REDSTONE),
+                'C', ingredientOf(Tags.BlockItems.COBBLESTONES_NORMAL.item()),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
+                'R', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_REDSTONE.item()),
                 'L', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM)
         ), new String[] {
                 "CRC",
@@ -1656,7 +1656,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'i', ingredientOf(CommonItemTags.GEARS_STEEL),
                 's', ingredientOf(CommonItemTags.INGOTS_STEEL),
                 'S', ingredientOf(Items.SMOOTH_STONE),
@@ -1681,7 +1681,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SORTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
-                'C', ingredientOf(Tags.Items.COBBLESTONES_NORMAL),
+                'C', ingredientOf(Tags.BlockItems.COBBLESTONES_NORMAL.item()),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
                 'R', ingredientOf(Tags.Items.DUSTS_REDSTONE),
                 'l', ingredientOf(Items.LEVER),
@@ -1704,7 +1704,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'i', ingredientOf(CommonItemTags.GEARS_STEEL),
                 's', ingredientOf(CommonItemTags.INGOTS_STEEL),
                 'S', ingredientOf(Items.SMOOTH_STONE),
@@ -1729,7 +1729,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SWITCH_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
-                'C', ingredientOf(Tags.Items.COBBLESTONES_NORMAL),
+                'C', ingredientOf(Tags.BlockItems.COBBLESTONES_NORMAL.item()),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
                 'R', ingredientOf(Tags.Items.DUSTS_REDSTONE),
                 'L', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM)
@@ -1751,7 +1751,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'i', ingredientOf(CommonItemTags.GEARS_STEEL),
                 's', ingredientOf(CommonItemTags.INGOTS_STEEL),
                 'S', ingredientOf(Items.SMOOTH_STONE),
@@ -1776,7 +1776,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SPLITTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
-                'C', ingredientOf(Tags.Items.COBBLESTONES_NORMAL),
+                'C', ingredientOf(Tags.BlockItems.COBBLESTONES_NORMAL.item()),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
                 'R', ingredientOf(Tags.Items.DUSTS_REDSTONE),
                 'L', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM)
@@ -1798,7 +1798,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'i', ingredientOf(CommonItemTags.GEARS_STEEL),
                 's', ingredientOf(CommonItemTags.INGOTS_STEEL),
                 'S', ingredientOf(Items.SMOOTH_STONE),
@@ -1823,7 +1823,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_MERGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
-                'B', ingredientOf(Tags.Items.BARRELS_WOODEN),
+                'B', ingredientOf(Tags.BlockItems.BARRELS_WOODEN.item()),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON)
         ), new String[] {
                 "III",
@@ -1833,7 +1833,7 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addShapedCraftingRecipe(has(EPBlocks.ITEM_SILO_TINY_ITEM), Map.of(
                 'S', ingredientOf(EPBlocks.ITEM_SILO_TINY_ITEM),
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'i', ingredientOf(CommonItemTags.PLATES_IRON)
         ), new String[] {
                 "IiI",
@@ -1843,7 +1843,7 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addShapedCraftingRecipe(has(EPBlocks.ITEM_SILO_SMALL_ITEM), Map.of(
                 'S', ingredientOf(EPBlocks.ITEM_SILO_SMALL_ITEM),
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 's', ingredientOf(CommonItemTags.PLATES_STEEL)
         ), new String[] {
                 "IsI",
@@ -1909,7 +1909,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.STEEL_FLUID_PIPE_ITEM, 12), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
-                'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
+                'G', ingredientOf(Tags.BlockItems.GLASS_PANES_COLORLESS.item()),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON)
         ), new String[] {
                 "IGI",
@@ -1936,7 +1936,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.FLUID_TANK_LARGE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
-                'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
+                'G', ingredientOf(Tags.BlockItems.GLASS_PANES_COLORLESS.item()),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
                 'L', ingredientOf(Tags.Items.GEMS_LAPIS)
         ), new String[] {
@@ -1958,7 +1958,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         addShapedCraftingRecipe(has(EPBlocks.XP_STORAGE_SMALL_ITEM), Map.of(
                 'X', ingredientOf(EPBlocks.XP_STORAGE_SMALL_ITEM),
                 'S', ingredientOf(CommonItemTags.PLATES_STEEL),
-                'L', ingredientOf(Tags.Items.STORAGE_BLOCKS_LAPIS)
+                'L', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_LAPIS.item())
         ), new String[] {
                 "SLS",
                 "XSX",
@@ -2055,8 +2055,8 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'C', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_COPPER.item()),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'M', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
                 'T', ingredientOf(EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM)
         ), new String[] {
@@ -2068,8 +2068,8 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'C', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_COPPER.item()),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'M', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
                 'T', ingredientOf(EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM)
         ), new String[] {
@@ -2081,8 +2081,8 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'C', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_COPPER.item()),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'M', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
                 'T', ingredientOf(EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM)
         ), new String[] {
@@ -2205,8 +2205,8 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'B', ingredientOf(EPItems.BASIC_CIRCUIT),
-                'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'C', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_COPPER.item()),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'M', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
                 'T', ingredientOf(EPBlocks.CONFIGURABLE_LV_TRANSFORMER_ITEM)
         ), new String[] {
@@ -2422,7 +2422,7 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'P', ingredientOf(Items.PISTON),
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'S', ingredientOf(CommonItemTags.INGOTS_STEEL),
                 'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
@@ -2455,11 +2455,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.AUTO_STONECUTTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
+                'G', ingredientOf(Tags.BlockItems.GLASS_PANES_COLORLESS.item()),
                 'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
                 'i', ingredientOf(CommonItemTags.PLATES_IRON),
                 'S', ingredientOf(CommonItemTags.SILICON),
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "SiS",
@@ -2469,8 +2469,8 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'C', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_COPPER.item()),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
                 'D', ingredientOf(Items.DISPENSER)
         ), new String[] {
@@ -2520,7 +2520,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
                 'I', ingredientOf(CommonItemTags.GEARS_IRON),
                 'T', ingredientOf(CommonItemTags.PLATES_TIN),
-                'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
+                'C', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_COPPER.item()),
                 'H', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "STS",
@@ -2533,7 +2533,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
                 'i', ingredientOf(CommonItemTags.GEARS_IRON),
-                'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
+                'C', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_COPPER.item()),
                 'H', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "SiS",
@@ -2546,7 +2546,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
                 'i', ingredientOf(CommonItemTags.GEARS_IRON),
-                'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
+                'C', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_COPPER.item()),
                 'H', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "iSi",
@@ -2556,7 +2556,7 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'i', ingredientOf(CommonItemTags.PLATES_IRON),
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
                 'D', ingredientOf(EPBlocks.FLUID_DRAINER_ITEM),
                 'F', ingredientOf(EPBlocks.FLUID_FILLER_ITEM),
@@ -2570,7 +2570,7 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'i', ingredientOf(CommonItemTags.GEARS_IRON),
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
                 'B', ingredientOf(Items.IRON_BARS),
                 'f', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM),
@@ -2618,11 +2618,11 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "aFa"
         }, itemStackOf(EPBlocks.ADVANCED_FLUID_PUMP_ITEM), CraftingBookCategory.MISC);
 
-        addShapedCraftingRecipe(has(Tags.Items.STORAGE_BLOCKS_IRON), Map.of(
+        addShapedCraftingRecipe(has(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()), Map.of(
                 'i', ingredientOf(CommonItemTags.PLATES_IRON),
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'B', ingredientOf(Items.IRON_BARS),
-                'G', ingredientOf(Tags.Items.GLASS_BLOCKS_COLORLESS)
+                'G', ingredientOf(Tags.BlockItems.GLASS_BLOCKS_COLORLESS.item())
         ), new String[] {
                 "IBI",
                 "iGi",
@@ -2711,9 +2711,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.ELITE_UNCHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.CHARGER_ITEM), Map.of(
-                'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
+                'C', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_COPPER.item()),
                 'c', ingredientOf(CommonItemTags.PLATES_COPPER),
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'i', ingredientOf(CommonItemTags.PLATES_IRON),
                 'S', ingredientOf(CommonItemTags.SILICON),
                 'H', ingredientOf(EPBlocks.CHARGER_ITEM)
@@ -2724,9 +2724,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.MINECART_CHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_CHARGER_ITEM), Map.of(
-                'G', ingredientOf(Tags.Items.STORAGE_BLOCKS_GOLD),
+                'G', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_GOLD.item()),
                 'g', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
+                'C', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_COPPER.item()),
                 'c', ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER),
                 'S', ingredientOf(CommonItemTags.SILICON),
                 'H', ingredientOf(EPBlocks.ADVANCED_CHARGER_ITEM)
@@ -2748,9 +2748,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.ELITE_MINECART_CHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.UNCHARGER_ITEM), Map.of(
-                'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
+                'C', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_COPPER.item()),
                 'c', ingredientOf(CommonItemTags.PLATES_COPPER),
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
                 'i', ingredientOf(CommonItemTags.PLATES_IRON),
                 'S', ingredientOf(CommonItemTags.SILICON),
                 'U', ingredientOf(EPBlocks.UNCHARGER_ITEM)
@@ -2761,9 +2761,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.MINECART_UNCHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_UNCHARGER_ITEM), Map.of(
-                'G', ingredientOf(Tags.Items.STORAGE_BLOCKS_GOLD),
+                'G', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_GOLD.item()),
                 'g', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
+                'C', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_COPPER.item()),
                 'c', ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER),
                 'S', ingredientOf(CommonItemTags.SILICON),
                 'U', ingredientOf(EPBlocks.ADVANCED_UNCHARGER_ITEM)
@@ -2785,7 +2785,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.ELITE_MINECART_UNCHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_SOLAR_CELL), Map.of(
-                'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
+                'G', ingredientOf(Tags.BlockItems.GLASS_PANES_COLORLESS.item()),
                 'R', ingredientOf(Tags.Items.DUSTS_REDSTONE),
                 'I', ingredientOf(Tags.Items.INGOTS_IRON),
                 'C', ingredientOf(Tags.Items.INGOTS_COPPER),
@@ -2797,7 +2797,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.SOLAR_PANEL_ITEM_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_1), Map.of(
-                'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
+                'G', ingredientOf(Tags.BlockItems.GLASS_PANES_COLORLESS.item()),
                 'C', ingredientOf(Tags.Items.INGOTS_COPPER),
                 'R', ingredientOf(Tags.Items.DUSTS_REDSTONE),
                 'S', ingredientOf(EPBlocks.SOLAR_PANEL_ITEM_1),
@@ -2809,7 +2809,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.SOLAR_PANEL_ITEM_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_2), Map.of(
-                'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
+                'G', ingredientOf(Tags.BlockItems.GLASS_PANES_COLORLESS.item()),
                 'R', ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY),
                 's', ingredientOf(CommonItemTags.SILICON),
                 'S', ingredientOf(EPBlocks.SOLAR_PANEL_ITEM_2),
@@ -2821,7 +2821,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.SOLAR_PANEL_ITEM_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_3), Map.of(
-                'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
+                'G', ingredientOf(Tags.BlockItems.GLASS_PANES_COLORLESS.item()),
                 's', ingredientOf(CommonItemTags.SILICON),
                 'R', ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY),
                 'S', ingredientOf(EPBlocks.SOLAR_PANEL_ITEM_3),
@@ -2833,7 +2833,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.SOLAR_PANEL_ITEM_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_4), Map.of(
-                'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
+                'G', ingredientOf(Tags.BlockItems.GLASS_PANES_COLORLESS.item()),
                 'a', ingredientOf(Tags.Items.GEMS_AMETHYST),
                 'E', ingredientOf(CommonItemTags.INGOTS_ENERGIZED_GOLD),
                 'S', ingredientOf(EPBlocks.SOLAR_PANEL_ITEM_4),
@@ -2845,7 +2845,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.SOLAR_PANEL_ITEM_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_5), Map.of(
-                'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
+                'G', ingredientOf(Tags.BlockItems.GLASS_PANES_COLORLESS.item()),
                 'A', ingredientOf(Tags.Items.GEMS_AMETHYST),
                 'E', ingredientOf(CommonItemTags.INGOTS_ENERGIZED_GOLD),
                 'S', ingredientOf(EPBlocks.SOLAR_PANEL_ITEM_5),
@@ -2857,7 +2857,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.SOLAR_PANEL_ITEM_6), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_6), Map.of(
-                'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
+                'G', ingredientOf(Tags.BlockItems.GLASS_PANES_COLORLESS.item()),
                 'C', ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI),
                 'e', ingredientOf(CommonItemTags.INGOTS_ENERGIZED_ALLOY),
                 'S', ingredientOf(EPBlocks.SOLAR_PANEL_ITEM_6),
@@ -2930,7 +2930,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 'R', ingredientOf(Tags.Items.DUSTS_REDSTONE),
                 'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER),
                 'a', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
-                'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
+                'C', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_COPPER.item()),
                 'A', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "RaR",
@@ -2952,10 +2952,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, itemStackOf(EPBlocks.ENERGIZER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
-                'R', ingredientOf(Tags.Items.STORAGE_BLOCKS_REDSTONE),
+                'I', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()),
+                'R', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_REDSTONE.item()),
                 'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
+                'C', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_COPPER.item()),
                 'a', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
                 'A', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
@@ -2979,7 +2979,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 'S', ingredientOf(CommonItemTags.SILICON),
                 'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
                 'c', ingredientOf(CommonItemTags.PLATES_COPPER),
-                'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
+                'C', ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_COPPER.item()),
                 'H', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
                 'E', ingredientOf(EPBlocks.COAL_ENGINE_ITEM)
         ), new String[] {
@@ -3159,13 +3159,13 @@ public class ModRecipeGenerator extends RecipeProvider {
                 ingredientOf(CommonItemTags.STORAGE_BLOCKS_TIN), itemStackOf(EPItems.TIN_PLATE),
                 "tin");
         addPlateCompressorRecipes(ingredientOf(Tags.Items.INGOTS_COPPER),
-                ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER), itemStackOf(EPItems.COPPER_PLATE),
+                ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_COPPER.item()), itemStackOf(EPItems.COPPER_PLATE),
                 "copper");
         addPlateCompressorRecipes(ingredientOf(Tags.Items.INGOTS_IRON),
-                ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON), itemStackOf(EPItems.IRON_PLATE),
+                ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_IRON.item()), itemStackOf(EPItems.IRON_PLATE),
                 "iron");
         addPlateCompressorRecipes(ingredientOf(Tags.Items.INGOTS_GOLD),
-                ingredientOf(Tags.Items.STORAGE_BLOCKS_GOLD), itemStackOf(EPItems.GOLD_PLATE),
+                ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_GOLD.item()), itemStackOf(EPItems.GOLD_PLATE),
                 "gold");
         addPlateCompressorRecipes(ingredientOf(CommonItemTags.INGOTS_STEEL),
                 ingredientOf(CommonItemTags.STORAGE_BLOCKS_STEEL), itemStackOf(EPItems.STEEL_PLATE),
@@ -3211,10 +3211,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         addCrusherRecipe(ingredientOf(Items.POLISHED_ANDESITE), itemStackOf(Items.ANDESITE),
                 "polished_andesite");
 
-        addCrusherRecipe(ingredientOf(Tags.Items.COBBLESTONES_NORMAL), itemStackOf(Items.GRAVEL),
+        addCrusherRecipe(ingredientOf(Tags.BlockItems.COBBLESTONES_NORMAL.item()), itemStackOf(Items.GRAVEL),
                 "cobblestone");
 
-        addCrusherRecipe(ingredientOf(Tags.Items.GRAVELS), itemStackOf(Items.SAND),
+        addCrusherRecipe(ingredientOf(Tags.BlockItems.GRAVELS.item()), itemStackOf(Items.SAND),
                 "gravel");
 
         addCrusherRecipe(ingredientOf(Items.SANDSTONE), itemStackOf(Items.SAND),
@@ -3252,15 +3252,15 @@ public class ModRecipeGenerator extends RecipeProvider {
                 ingredientOf(CommonItemTags.STORAGE_BLOCKS_RAW_TIN), ingredientOf(CommonItemTags.INGOTS_TIN),
                 itemStackOf(EPItems.TIN_DUST), "tin");
         addBasicMetalPulverizerRecipes(
-                ingredientOf(Tags.Items.ORES_IRON), ingredientOf(Tags.Items.RAW_MATERIALS_IRON),
-                ingredientOf(Tags.Items.STORAGE_BLOCKS_RAW_IRON), ingredientOf(Tags.Items.INGOTS_IRON),
+                ingredientOf(Tags.BlockItems.ORES_IRON.item()), ingredientOf(Tags.Items.RAW_MATERIALS_IRON),
+                ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_RAW_IRON.item()), ingredientOf(Tags.Items.INGOTS_IRON),
                 itemStackOf(EPItems.IRON_DUST), "iron");
         addBasicMetalPulverizerRecipes(
-                ingredientOf(Tags.Items.ORES_GOLD), ingredientOf(Tags.Items.RAW_MATERIALS_GOLD),
-                ingredientOf(Tags.Items.STORAGE_BLOCKS_RAW_GOLD), ingredientOf(Tags.Items.INGOTS_GOLD),
+                ingredientOf(Tags.BlockItems.ORES_GOLD.item()), ingredientOf(Tags.Items.RAW_MATERIALS_GOLD),
+                ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_RAW_GOLD.item()), ingredientOf(Tags.Items.INGOTS_GOLD),
                 itemStackOf(EPItems.GOLD_DUST), "gold");
 
-        addPulverizerRecipe(ingredientOf(Tags.Items.ORES_COPPER),
+        addPulverizerRecipe(ingredientOf(Tags.BlockItems.ORES_COPPER.item()),
                 new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(EPItems.COPPER_DUST), new double[] {
                         1., 1., 1., 1., .5, .5
                 }, new double[] {
@@ -3270,52 +3270,52 @@ public class ModRecipeGenerator extends RecipeProvider {
                         .1, .2), "copper_ores");
         addRawMetalAndIngotPulverizerRecipes(
                 ingredientOf(Tags.Items.RAW_MATERIALS_COPPER),
-                ingredientOf(Tags.Items.STORAGE_BLOCKS_RAW_COPPER), ingredientOf(Tags.Items.INGOTS_COPPER),
+                ingredientOf(Tags.BlockItems.STORAGE_BLOCKS_RAW_COPPER.item()), ingredientOf(Tags.Items.INGOTS_COPPER),
                 itemStackOf(EPItems.COPPER_DUST), "copper");
 
-        addPulverizerRecipe(ingredientOf(Tags.Items.ORES_COAL),
+        addPulverizerRecipe(ingredientOf(Tags.BlockItems.ORES_COAL.item()),
                 new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.COAL), new double[] {
                         1., 1., .25
                 }, new double[] {
                         1., 1., .5, .25
                 }), "coal_ores");
 
-        addPulverizerRecipe(ingredientOf(Tags.Items.ORES_REDSTONE),
+        addPulverizerRecipe(ingredientOf(Tags.BlockItems.ORES_REDSTONE.item()),
                 new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.REDSTONE), new double[] {
                         1., 1., 1., 1., 1., .67, .33, .33, .17
                 }, new double[] {
                         1., 1., 1., 1., 1., .67, .67, .33, .33, .17
                 }), "redstone_ores");
 
-        addPulverizerRecipe(ingredientOf(Tags.Items.ORES_LAPIS),
+        addPulverizerRecipe(ingredientOf(Tags.BlockItems.ORES_LAPIS.item()),
                 new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.LAPIS_LAZULI), new double[] {
                         1., 1., 1., 1., 1., 1., 1., 1., .5, .5, .25, .125
                 }, new double[] {
                         1., 1., 1., 1., 1., 1., 1., 1., .75, .5, .5, .25, .125
                 }), "lapis_ores");
 
-        addPulverizerRecipe(ingredientOf(Tags.Items.ORES_EMERALD),
+        addPulverizerRecipe(ingredientOf(Tags.BlockItems.ORES_EMERALD.item()),
                 new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.EMERALD), new double[] {
                         1., .67, .17
                 }, new double[] {
                         1., .67, .33, .17
                 }), "emerald_ores");
 
-        addPulverizerRecipe(ingredientOf(Tags.Items.ORES_DIAMOND),
+        addPulverizerRecipe(ingredientOf(Tags.BlockItems.ORES_DIAMOND.item()),
                 new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.DIAMOND), new double[] {
                         1., .67, .17
                 }, new double[] {
                         1., .67, .33, .17
                 }), "diamond_ores");
 
-        addPulverizerRecipe(ingredientOf(Tags.Items.ORES_QUARTZ),
+        addPulverizerRecipe(ingredientOf(Tags.BlockItems.ORES_QUARTZ.item()),
                 new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.QUARTZ), new double[] {
                         1., .67, .17
                 }, new double[] {
                         1., .67, .33, .17
                 }), "nether_quartz_ores");
 
-        addPulverizerRecipe(ingredientOf(Tags.Items.ORES_NETHERITE_SCRAP),
+        addPulverizerRecipe(ingredientOf(Tags.BlockItems.ORES_NETHERITE_SCRAP.item()),
                 new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.NETHERITE_SCRAP), new double[] {
                         1., .125, .125
                 }, new double[] {
@@ -3361,7 +3361,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                         1., 1., 1., 1.
                 }), "wool");
 
-        addPulverizerRecipe(ingredientOf(Tags.Items.GRAVELS),
+        addPulverizerRecipe(ingredientOf(Tags.BlockItems.GRAVELS.item()),
                 new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.FLINT),
                         1., 1.), "gravels");
 
