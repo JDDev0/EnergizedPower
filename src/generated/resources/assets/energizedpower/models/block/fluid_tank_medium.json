@@ -5,6 +5,7 @@
     "interior": "energizedpower:block/fluid_tank_medium_interior",
     "particle": "energizedpower:block/fluid_tank_medium_top",
     "side": "energizedpower:block/fluid_tank_medium_side",
+    "top": "energizedpower:block/fluid_tank_medium_top",
     "up": "energizedpower:block/fluid_tank_medium_top"
   }
 }

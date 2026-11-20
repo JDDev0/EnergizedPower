@@ -27,7 +27,8 @@ public final class ModModelTemplates {
             TextureSlot.PARTICLE, ModTextureSlot.FLUID_PIPE_SIDE_INNER, ModTextureSlot.FLUID_PIPE_SIDE_OUTER);
 
     public static final ModelTemplate FLUID_TANK_TEMPLATE = block("fluid_tank_template",
-            TextureSlot.PARTICLE, TextureSlot.FRONT, TextureSlot.SIDE, TextureSlot.UP, ModTextureSlot.INTERIOR);
+            TextureSlot.PARTICLE, TextureSlot.FRONT, TextureSlot.SIDE, TextureSlot.UP, ModTextureSlot.INTERIOR,
+            TextureSlot.TOP /* Fixes "unresolved texture references" warning message */);
 
     public static final ModelTemplate CABLE_CORE_TEMPLATE = block("cable_core_template",
             TextureSlot.PARTICLE, ModTextureSlot.CABLE);

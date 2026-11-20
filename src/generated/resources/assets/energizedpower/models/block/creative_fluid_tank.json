@@ -5,6 +5,7 @@
     "interior": "energizedpower:block/creative_fluid_tank_interior",
     "particle": "energizedpower:block/creative_fluid_tank_top",
     "side": "energizedpower:block/creative_fluid_tank_side",
+    "top": "energizedpower:block/creative_fluid_tank_top",
     "up": "energizedpower:block/creative_fluid_tank_top"
   }
 }

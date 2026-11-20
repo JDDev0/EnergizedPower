@@ -67,7 +67,8 @@ public final class ModTexturedModel {
                 put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side")).
                 put(TextureSlot.UP, TextureMapping.getBlockTexture(block, "_top")).
                 put(ModTextureSlot.INTERIOR, TextureMapping.getBlockTexture(block, "_interior")).
-                copySlot(TextureSlot.UP, TextureSlot.PARTICLE);
+                copySlot(TextureSlot.UP, TextureSlot.PARTICLE).
+                copySlot(TextureSlot.UP, TextureSlot.TOP) /* Fixes "unresolved texture references" warning message */;
     }
 
     public static TextureMapping cableCore(Block block) {
