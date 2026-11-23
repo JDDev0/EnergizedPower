@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
@@ -33,6 +34,8 @@ import java.util.Collection;
 public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
         implements RedstoneOutput {
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_HEAT_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
+
+    protected int timeoutOffState;
 
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -128,6 +131,14 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
         if(level.isClientSide() || !(level instanceof ServerLevel serverLevel))
             return;
 
+        if(blockEntity.timeoutOffState > 0) {
+            blockEntity.timeoutOffState--;
+
+            if(blockEntity.timeoutOffState == 0) {
+                blockEntity.onEnergyProductionStoppedWithOffTimeout();
+            }
+        }
+
         Collection<RecipeHolder<HeatGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverLevel, HeatGeneratorRecipe.Type.INSTANCE);
 
         int productionSum = 0;
@@ -146,6 +157,9 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
         }
 
         if(productionSum > 0) {
+            blockEntity.timeoutOffState = 0;
+            blockEntity.onEnergyProductionStarted();
+
             productionSum = (int)(productionSum * ENERGY_PRODUCTION_MULTIPLIER *
                     blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
 
@@ -153,8 +167,30 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
                 blockEntity.energyStorage.insert(productionSum, transaction);
                 transaction.commit();
             }
+        }else {
+            if(blockEntity.timeoutOffState == 0) {
+                blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
+            }
+
+            blockEntity.onEnergyProductionStopped();
         }
 
         blockEntity.pushEnergyToOutputs(Direction.values());
+    }
+
+    protected void onEnergyProductionStarted() {
+        if(level.getBlockState(getBlockPos()).hasProperty(EPBlockStateProperties.WORKING) &&
+                !level.getBlockState(getBlockPos()).getValue(EPBlockStateProperties.WORKING)) {
+            level.setBlock(getBlockPos(), getBlockState().setValue(EPBlockStateProperties.WORKING, true), 3);
+        }
+    }
+
+    protected void onEnergyProductionStopped() {}
+
+    protected void onEnergyProductionStoppedWithOffTimeout() {
+        if(level.getBlockState(getBlockPos()).hasProperty(EPBlockStateProperties.WORKING) &&
+                level.getBlockState(getBlockPos()).getValue(EPBlockStateProperties.WORKING)) {
+            level.setBlock(getBlockPos(), getBlockState().setValue(EPBlockStateProperties.WORKING, false), 3);
+        }
     }
 }
