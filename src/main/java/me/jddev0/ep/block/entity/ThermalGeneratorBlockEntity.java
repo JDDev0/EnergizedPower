@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.ThermalGeneratorBlock;
 import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableFluidEnergyStorageBlockEntity;
@@ -38,6 +39,8 @@ public class ThermalGeneratorBlockEntity
     private static final int FLUID_SLOT_INPUT = 0;
 
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
+
+    protected int timeoutOffState;
 
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -219,6 +222,14 @@ public class ThermalGeneratorBlockEntity
         if(level.isClientSide())
             return;
 
+        if(blockEntity.timeoutOffState > 0) {
+            blockEntity.timeoutOffState--;
+
+            if(blockEntity.timeoutOffState == 0) {
+                blockEntity.onEnergyProductionStoppedWithOffTimeout();
+            }
+        }
+
         if(blockEntity.redstoneMode.isActive(state.getValue(ThermalGeneratorBlock.POWERED)))
             tickRecipe(level, blockPos, state, blockEntity);
 
@@ -255,12 +266,45 @@ public class ThermalGeneratorBlockEntity
             //Re-calculate energy production (Prevents draining of not enough fluid)
             production = (int)(rawProduction * fluidAmount / 1000.f);
 
-            try(Transaction transaction = Transaction.open(null)) {
-                blockEntity.fluidStorage.extract(blockEntity.fluidStorage.getResource(0), fluidAmount, transaction);
+            if(production > 0) {
+                blockEntity.timeoutOffState = 0;
+                blockEntity.onEnergyProductionStarted();
 
-                blockEntity.energyStorage.insert(production, transaction);
-                transaction.commit();
+                try(Transaction transaction = Transaction.open(null)) {
+                    blockEntity.fluidStorage.extract(blockEntity.fluidStorage.getResource(0), fluidAmount, transaction);
+
+                    blockEntity.energyStorage.insert(production, transaction);
+                    transaction.commit();
+                }
+            }else {
+                if(blockEntity.timeoutOffState == 0) {
+                    blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
+                }
+
+                blockEntity.onEnergyProductionStopped();
             }
+        }else {
+            if(blockEntity.timeoutOffState == 0) {
+                blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
+            }
+
+            blockEntity.onEnergyProductionStopped();
+        }
+    }
+
+    protected void onEnergyProductionStarted() {
+        if(level.getBlockState(getBlockPos()).hasProperty(EPBlockStateProperties.WORKING) &&
+                !level.getBlockState(getBlockPos()).getValue(EPBlockStateProperties.WORKING)) {
+            level.setBlock(getBlockPos(), getBlockState().setValue(EPBlockStateProperties.WORKING, true), 3);
+        }
+    }
+
+    protected void onEnergyProductionStopped() {}
+
+    protected void onEnergyProductionStoppedWithOffTimeout() {
+        if(level.getBlockState(getBlockPos()).hasProperty(EPBlockStateProperties.WORKING) &&
+                level.getBlockState(getBlockPos()).getValue(EPBlockStateProperties.WORKING)) {
+            level.setBlock(getBlockPos(), getBlockState().setValue(EPBlockStateProperties.WORKING, false), 3);
         }
     }
 }
