@@ -231,17 +231,32 @@ public class FluidTransposerBlockEntity
     }
 
     @Override
-    protected Optional<RecipeHolder<FluidTransposerRecipe>> getRecipeFor(Container inventory) {
+    protected Optional<RecipeHolder<FluidTransposerRecipe>> getRecipeFor(int thread, Container inventory) {
         if(!(level instanceof ServerLevel serverLevel))
             return Optional.empty();
 
-        return RecipeUtils.getAllRecipesFor(serverLevel, recipeType).
+        RecipeInput recipeInput = getRecipeInput(inventory);
+
+        if(lastRecipeCache[thread] != null) {
+            RecipeHolder<FluidTransposerRecipe> recipe = lastRecipeCache[thread];
+            if(recipe.value().getMode() == mode && recipe.value().matches(recipeInput, level) &&
+                    ((mode == Mode.EMPTYING && fluidStorage.getFluid(0).isEmpty()) ||
+                            recipe.value().getFluid().map(fluid -> FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0), fluid),
+                                    fluid -> fluid.test(fluidStorage.getFluid(0))))) {
+                return Optional.of(recipe);
+            }
+        }
+
+        Optional<RecipeHolder<FluidTransposerRecipe>> ret = RecipeUtils.getAllRecipesFor(serverLevel, recipeType).
                 stream().filter(recipe -> recipe.value().getMode() == mode).
-                filter(recipe -> recipe.value().matches(getRecipeInput(inventory), level)).
+                filter(recipe -> recipe.value().matches(recipeInput, level)).
                 filter(recipe -> (mode == Mode.EMPTYING && fluidStorage.getFluid(0).isEmpty()) ||
                         recipe.value().getFluid().map(fluid -> FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0), fluid),
                                 fluid -> fluid.test(fluidStorage.getFluid(0)))).
                 findFirst();
+        lastRecipeCache[thread] = ret.orElse(null);
+
+        return ret;
     }
 
     @Override

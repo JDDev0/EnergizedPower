@@ -38,11 +38,14 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
 
     protected final RecipeType<R> recipeType;
 
+    protected final RecipeHolder<R>[] lastRecipeCache;
+
     protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
 
     protected int slotCountPerRecipeStartOffset = 0;
     protected int slotCountPerRecipe = 2;
 
+    @SuppressWarnings("unchecked")
     public SimpleRecipeMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                           String machineName, UpgradableMenuProvider menuProvider,
                                           int slotCount, RecipeType<R> recipeType, int baseRecipeDuration,
@@ -54,6 +57,8 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
         this.menuProvider = menuProvider;
 
         this.recipeType = recipeType;
+
+        this.lastRecipeCache = new RecipeHolder[workerThreadCount];
     }
 
     @Override
@@ -131,16 +136,24 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
 
     protected abstract C getRecipeInput(Container inventory);
 
-    protected Optional<RecipeHolder<R>> getRecipeFor(Container inventory) {
+    protected Optional<RecipeHolder<R>> getRecipeFor(int thread, Container inventory) {
         if(!(level instanceof ServerLevel serverLevel))
             return Optional.empty();
 
-        return serverLevel.recipeAccess().getRecipeFor(recipeType, getRecipeInput(inventory), level);
+        C recipeInput = getRecipeInput(inventory);
+
+        if(lastRecipeCache[thread] != null && lastRecipeCache[thread].value().matches(recipeInput, level))
+            return Optional.of(lastRecipeCache[thread]);
+
+        Optional<RecipeHolder<R>> ret = serverLevel.recipeAccess().getRecipeFor(recipeType, recipeInput, level);
+        lastRecipeCache[thread] = ret.orElse(null);
+
+        return ret;
     }
 
     @Override
     protected final Optional<RecipeHolder<R>> getCurrentWorkData(int thread) {
-        return getRecipeFor(getInventoryForRecipe(thread));
+        return getRecipeFor(thread, getInventoryForRecipe(thread));
     }
 
     @Override
@@ -172,7 +185,7 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
 
         SimpleContainer inventory = getInventoryForRecipe(thread);
 
-        Optional<RecipeHolder<R>> recipe = getRecipeFor(inventory);
+        Optional<RecipeHolder<R>> recipe = getRecipeFor(thread, inventory);
 
         return recipe.isPresent() && canCraftRecipe(thread, inventory, recipe.get());
     }

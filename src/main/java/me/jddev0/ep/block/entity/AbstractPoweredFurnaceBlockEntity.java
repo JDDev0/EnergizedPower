@@ -62,8 +62,11 @@ public abstract class AbstractPoweredFurnaceBlockEntity
 
     private double leftoverXPAmount = 0;
 
+    protected final RecipeHolder<? extends AbstractCookingRecipe>[] lastRecipeCache;
+
     protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
 
+    @SuppressWarnings("unchecked")
     public AbstractPoweredFurnaceBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                              String machineName, UpgradableMenuProvider menuProvider,
                                              int slotCount, List<@NotNull Identifier> recipeBlacklist, double recipeDurationMultiplier,
@@ -91,6 +94,8 @@ public abstract class AbstractPoweredFurnaceBlockEntity
 
         this.recipeBlacklist = recipeBlacklist;
         this.recipeDurationMultiplier = recipeDurationMultiplier;
+
+        this.lastRecipeCache = new RecipeHolder[workerThreadCount];
     }
 
     @Override
@@ -304,7 +309,7 @@ public abstract class AbstractPoweredFurnaceBlockEntity
     @Override
     @SuppressWarnings("unchecked")
     protected Optional<RecipeHolder<? extends AbstractCookingRecipe>> getCurrentWorkData(int thread) {
-        return (Optional<RecipeHolder<? extends AbstractCookingRecipe>>)getRecipeFor(getInventoryForRecipe(thread), level);
+        return (Optional<RecipeHolder<? extends AbstractCookingRecipe>>)getRecipeFor(thread, getInventoryForRecipe(thread));
     }
 
     @Override
@@ -326,7 +331,7 @@ public abstract class AbstractPoweredFurnaceBlockEntity
     }
 
     private void craftItem(int thread, RecipeHolder<? extends AbstractCookingRecipe> workData) {
-        Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = getRecipeFor(getInventoryForRecipe(thread), level);
+        Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = getRecipeFor(thread, getInventoryForRecipe(thread));
 
         if(!hasRecipe(thread) || recipe.isEmpty())
             return;
@@ -356,20 +361,29 @@ public abstract class AbstractPoweredFurnaceBlockEntity
     private boolean hasRecipe(int thread) {
         SimpleContainer inventory = getInventoryForRecipe(thread);
 
-        Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = getRecipeFor(inventory, level);
+        Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = getRecipeFor(thread, inventory);
 
         return recipe.isPresent() &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.get().value().assemble(null));
     }
 
-    private Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> getRecipeFor(Container container, Level level) {
+    private Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> getRecipeFor(int thread, Container container) {
         if(!(level instanceof ServerLevel serverLevel))
             return Optional.empty();
 
-        return RecipeUtils.getAllRecipesFor(serverLevel, getRecipeForFurnaceModeUpgrade()).
+        SingleRecipeInput recipeInput = new SingleRecipeInput(container.getItem(0));
+
+        if(lastRecipeCache[thread] != null && lastRecipeCache[thread].value().getType() == getRecipeForFurnaceModeUpgrade() &&
+                lastRecipeCache[thread].value().matches(recipeInput, level))
+            return Optional.of(lastRecipeCache[thread]);
+
+        Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> ret = RecipeUtils.getAllRecipesFor(serverLevel, getRecipeForFurnaceModeUpgrade()).
                 stream().filter(recipe -> !recipeBlacklist.contains(recipe.id().identifier())).
-                filter(recipe -> recipe.value().matches(new SingleRecipeInput(container.getItem(0)), level)).
+                filter(recipe -> recipe.value().matches(recipeInput, level)).
                 findFirst();
+        lastRecipeCache[thread] = ret.orElse(null);
+
+        return ret;
     }
 
     public RecipeType<? extends AbstractCookingRecipe> getRecipeForFurnaceModeUpgrade() {
