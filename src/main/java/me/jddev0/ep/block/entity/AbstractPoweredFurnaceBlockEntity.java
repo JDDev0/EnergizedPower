@@ -327,7 +327,10 @@ public abstract class AbstractPoweredFurnaceBlockEntity
 
     @Override
     protected double getWorkDataDependentWorkDuration(int thread, RecipeHolder<? extends AbstractCookingRecipe> recipe) {
-        return recipe.value().cookingTime() * recipeDurationMultiplier;
+        return recipe.value().cookingTime() * recipeDurationMultiplier *
+                //Since MC v26.3: `cookingtime` of all blasting and smoking recipes are the same as the normal smelting recipes,
+                // because the speed multiplier (for different block entities) is now defined in the `COOKING_FUEL` data component of the fuel item.
+                (getRecipeForFurnaceModeUpgrade() == RecipeType.SMELTING?1.:.5);
     }
 
     private void craftItem(int thread, RecipeHolder<? extends AbstractCookingRecipe> workData) {
