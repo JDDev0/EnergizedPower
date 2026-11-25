@@ -1,6 +1,6 @@
 {
   "type": "minecraft:blasting",
-  "cookingtime": 100,
+  "cookingtime": 200,
   "experience": 0.7,
   "group": "copper_ingot",
   "ingredient": "#c:dusts/copper",

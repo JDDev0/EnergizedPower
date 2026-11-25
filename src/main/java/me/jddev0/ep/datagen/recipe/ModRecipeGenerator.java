@@ -3081,28 +3081,28 @@ public class ModRecipeGenerator extends RecipeProvider {
 
     private void buildCookingRecipes() {
         addBlastingAndSmeltingRecipes(CommonItemTags.RAW_MATERIALS_TIN, itemStackOf(EPItems.TIN_INGOT), CookingBookCategory.MISC,
-                100, .7f, "tin_ingot", "raw_tin");
+                200, .7f, "tin_ingot", "raw_tin");
         addBlastingAndSmeltingRecipes(CommonItemTags.ORES_TIN, itemStackOf(EPItems.TIN_INGOT), CookingBookCategory.MISC,
-                100, .7f, "tin_ingot", "tin_ores");
+                200, .7f, "tin_ingot", "tin_ores");
 
         addBlastingAndSmeltingRecipes(CommonItemTags.DUSTS_TIN, itemStackOf(EPItems.TIN_INGOT), CookingBookCategory.MISC,
-                100, .7f, "tin_ingot", "tin_dust");
+                200, .7f, "tin_ingot", "tin_dust");
         addBlastingAndSmeltingRecipes(CommonItemTags.DUSTS_COPPER, itemStackOf(Items.COPPER_INGOT), CookingBookCategory.MISC,
-                100, .7f, "copper_ingot", "copper_dust");
+                200, .7f, "copper_ingot", "copper_dust");
         addBlastingAndSmeltingRecipes(CommonItemTags.DUSTS_IRON, itemStackOf(Items.IRON_INGOT), CookingBookCategory.MISC,
-                100, .7f, "iron_ingot", "iron_dust");
+                200, .7f, "iron_ingot", "iron_dust");
         addBlastingAndSmeltingRecipes(CommonItemTags.DUSTS_GOLD, itemStackOf(Items.GOLD_INGOT), CookingBookCategory.MISC,
-                100, .7f, "gold_ingot", "gold_dust");
+                200, .7f, "gold_ingot", "gold_dust");
 
         addBlastingAndSmeltingRecipes(EPItems.COPPER_HAMMER, itemStackOf(Items.COPPER_NUGGET), CookingBookCategory.MISC,
-                100, .1f, "copper_nugget", "copper_hammer");
+                200, .1f, "copper_nugget", "copper_hammer");
         addBlastingAndSmeltingRecipes(EPItems.IRON_HAMMER, itemStackOf(Items.IRON_NUGGET), CookingBookCategory.MISC,
-                100, .1f, "iron_nugget", "iron_hammer");
+                200, .1f, "iron_nugget", "iron_hammer");
         addBlastingAndSmeltingRecipes(EPItems.GOLDEN_HAMMER, itemStackOf(Items.GOLD_NUGGET), CookingBookCategory.MISC,
-                100, .1f, "gold_nugget", "golden_hammer");
+                200, .1f, "gold_nugget", "golden_hammer");
 
         addBlastingAndSmeltingRecipes(Tags.Items.GEMS_QUARTZ, itemStackOf(EPItems.SILICON), CookingBookCategory.MISC,
-                250, 4.1f, "silicon", "nether_quartz");
+                500, 4.1f, "silicon", "nether_quartz");
 
         addSmeltingRecipe(EPBlocks.SAWDUST_BLOCK_ITEM, itemStackOf(Items.CHARCOAL), CookingBookCategory.MISC,
                 200, .15f, null, "sawdust_block");
@@ -4197,13 +4197,13 @@ public class ModRecipeGenerator extends RecipeProvider {
                                                CookingBookCategory category, int time, float xp, String group,
                                                String recipeIngredientName) {
         addBlastingRecipe(ingredient, result, category, time, xp, group, recipeIngredientName);
-        addSmeltingRecipe(ingredient, result, category, 2 * time, xp, group, recipeIngredientName);
+        addSmeltingRecipe(ingredient, result, category, time, xp, group, recipeIngredientName);
     }
     private void addBlastingAndSmeltingRecipes(TagKey<Item> ingredient, ItemStackTemplate result,
                                                CookingBookCategory category, int time, float xp, String group,
                                                String recipeIngredientName) {
         addBlastingRecipe(ingredient, result, category, time, xp, group, recipeIngredientName);
-        addSmeltingRecipe(ingredient, result, category, 2 * time, xp, group, recipeIngredientName);
+        addSmeltingRecipe(ingredient, result, category, time, xp, group, recipeIngredientName);
     }
 
     private void addSmeltingRecipe(ItemLike ingredient, ItemStackTemplate result, CookingBookCategory category,
